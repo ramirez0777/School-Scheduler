@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Scheduler</string>
+    <string name="home_title">Terms</string>
+    <string name="button_text">Change Text</string>
+</resources>
