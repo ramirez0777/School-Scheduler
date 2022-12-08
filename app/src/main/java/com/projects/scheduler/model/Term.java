@@ -1,4 +1,6 @@
-package com.projects.scheduler;
+package com.projects.scheduler.model;
+
+import com.projects.scheduler.model.Course;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

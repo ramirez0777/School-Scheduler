@@ -1,4 +1,4 @@
-package com.projects.scheduler;
+package com.projects.scheduler.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class Course {
     private LocalDate startDate;
     private LocalDate endDate;
     private ArrayList<Note> notes;
-    private ArrayList<Assesment> assesments;
+    private ArrayList<Assessment> assesments;
 
     public int getCourseId(){
         return id;
@@ -57,15 +57,15 @@ public class Course {
         notes.remove(note);
     }
 
-    public void addAssesment(Assesment assesment){
+    public void addAssesment(Assessment assesment){
         assesments.add(assesment);
     }
 
-    public ArrayList<Assesment> getAssesments(){
+    public ArrayList<Assessment> getAssesments(){
         return this.assesments;
     }
 
-    public void deleteAssesment(Assesment assesment){
+    public void deleteAssesment(Assessment assesment){
         assesments.remove(assesment);
     }
 }

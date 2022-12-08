@@ -1,4 +1,4 @@
-package com.projects.scheduler;
+package com.projects.scheduler.model;
 
 public class Note {
 

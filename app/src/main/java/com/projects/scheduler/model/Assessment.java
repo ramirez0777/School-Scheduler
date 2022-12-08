@@ -1,11 +1,10 @@
-package com.projects.scheduler;
+package com.projects.scheduler.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
-public class Assesment {
+public class Assessment {
 
-    public Assesment(){
+    public Assessment(){
 
     }
 
