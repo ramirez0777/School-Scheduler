@@ -39,6 +39,15 @@
                 android:value="" />
         </activity>
         <activity
+            android:label="Edit/Add a New Term"
+            android:name=".UI.NewCourse"
+            android:parentActivityName=".UI.TermDetails"
+            android:exported="false" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".UI.TermDetails"
             android:label="Term Details"
             android:parentActivityName=".UI.MainActivity"

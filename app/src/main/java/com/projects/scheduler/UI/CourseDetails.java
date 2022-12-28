@@ -1,21 +1,25 @@
 package com.projects.scheduler.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.projects.scheduler.R;
 import com.projects.scheduler.UI.Adapters.AssessmentAdapter;
-import com.projects.scheduler.UI.Adapters.CourseAdapter;
 import com.projects.scheduler.UI.Adapters.NoteAdapter;
 import com.projects.scheduler.database.Repository;
 import com.projects.scheduler.entities.Assessment;
 import com.projects.scheduler.entities.Course;
 import com.projects.scheduler.entities.Note;
-import com.projects.scheduler.entities.Term;
 
 import java.util.List;
 
@@ -62,6 +66,44 @@ public class CourseDetails extends AppCompatActivity {
         notesRecyclerView.setAdapter(noteAdapter);
         notesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
+        //This will be for the menu when editing
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CourseDetails.this, NewCourse.class);
+                NewCourse.courseToEdit = currentCourse;
+                NewCourse.termId = currentCourse.getTermId();
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_course_details, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent;
+        Repository repository = new Repository(getApplication());
+        switch(item.getItemId()){
+            case R.id.editCourse:
+                intent = new Intent(CourseDetails.this, NewCourse.class);
+                NewCourse.courseToEdit = currentCourse;
+                startActivity(intent);
+                break;
+
+            case R.id.deleteCourse:
+                intent = new Intent(CourseDetails.this, TermDetails.class);
+                repository.delete(currentCourse);
+                startActivity(intent);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

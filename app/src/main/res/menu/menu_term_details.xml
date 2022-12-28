@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="Edit Term"
-        android:id="@+id/editTerm"/>
+        android:id="@+id/editCourse"/>
     <item android:title="Delete Term"
-        android:id="@+id/deleteTerm"/>
+        android:id="@+id/deleteCourse"/>
 </menu>

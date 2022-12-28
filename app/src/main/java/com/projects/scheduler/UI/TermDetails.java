@@ -5,18 +5,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.projects.scheduler.R;
 import com.projects.scheduler.UI.Adapters.CourseAdapter;
 import com.projects.scheduler.database.Repository;
-import com.projects.scheduler.entities.Assessment;
 import com.projects.scheduler.entities.Course;
-import com.projects.scheduler.entities.Note;
 import com.projects.scheduler.entities.Term;
 
 import java.util.List;
@@ -49,6 +49,16 @@ public class TermDetails extends AppCompatActivity {
         courseAdapter.setCourses(allCourses);
         recyclerView.setAdapter(courseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TermDetails.this, NewCourse.class);
+                NewCourse.termId = currentTerm.getId();
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -62,14 +72,17 @@ public class TermDetails extends AppCompatActivity {
         Intent intent;
         Repository repository = new Repository(getApplication());
         switch(item.getItemId()){
-            case R.id.editTerm:
+            case R.id.editCourse:
                 intent = new Intent(TermDetails.this, NewTerm.class);
                 NewTerm.termToEdit = currentTerm;
                 startActivity(intent);
                 break;
 
-            case R.id.deleteTerm:
+            case R.id.deleteCourse:
+                //Can't delete a term that has
                 if(!repository.getCoursesForTerm(currentTerm.getId()).isEmpty()){
+                    TextView error = findViewById(R.id.error);
+                    error.setText(R.string.term_deletion_error);
                     return false;
                 }
                 intent = new Intent(TermDetails.this, MainActivity.class);
