@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -107,6 +108,9 @@ public class NewAssessment extends AppCompatActivity {
                             endDate.getText().toString(),
                             type.getSelectedItem().toString(),
                             courseId);
+                    if(assessmentToSave.getTitle().isEmpty() || assessmentToEdit.getStartDate().equals(R.string.start_date) || assessmentToEdit.getEndDate().equals(R.string.end_date) || assessmentToEdit.getType().isEmpty()){
+                        Toast.makeText(NewAssessment.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                        return;}
                     repository.update(assessmentToSave);
                     assessmentToEdit = null;
                 } else{
@@ -116,6 +120,9 @@ public class NewAssessment extends AppCompatActivity {
                             endDate.getText().toString(),
                             type.getSelectedItem().toString(),
                             courseId);
+                    if(assessmentToSave.getTitle().isEmpty() || assessmentToEdit.getStartDate().equals(R.string.start_date) || assessmentToEdit.getEndDate().equals(R.string.end_date) || assessmentToEdit.getType().isEmpty()){
+                        Toast.makeText(NewAssessment.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                        return;}
                     repository.insert(assessmentToSave);
                 }
 

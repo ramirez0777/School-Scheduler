@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.projects.scheduler.R;
@@ -92,10 +93,16 @@ public class NewTerm extends AppCompatActivity {
                 //Updating
                 if(termToEdit != null) {
                     Term termToSave = new Term(termToEdit.getId(), termName.getText().toString(), startDate.getText().toString(), endDate.getText().toString());
+                    if(termToSave.getTermName().isEmpty() || termToSave.getStartDate().equals(R.string.start_date) || termToSave.getEndDate().equals(R.string.end_date)){
+                        Toast.makeText(NewTerm.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                        return;}
                     repository.update(termToSave);
                     termToEdit = null;
                 } else{
                     Term termToSave = new Term(0, termName.getText().toString(), startDate.getText().toString(), endDate.getText().toString());
+                    if(termToSave.getTermName().isEmpty() || termToSave.getStartDate().equals(R.string.start_date) || termToSave.getEndDate().equals(R.string.end_date)){
+                        Toast.makeText(NewTerm.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                        return;}
                     repository.insert(termToSave);
                 }
 

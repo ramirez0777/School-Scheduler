@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,6 +40,9 @@ public class NewNote extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 Note noteToSave = new Note(0, text.getText().toString(), courseId);
+                if(noteToSave.getText().isEmpty()){
+                    Toast.makeText(NewNote.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                    return;}
                 repository.insert(noteToSave);
                 Intent intent = new Intent(NewNote.this, CourseDetails.class);
                 startActivity(intent);

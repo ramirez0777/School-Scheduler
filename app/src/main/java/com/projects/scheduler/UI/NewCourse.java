@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -111,10 +112,16 @@ public class NewCourse extends AppCompatActivity {
                     //Updating
                     if (courseToEdit != null) {
                         Course courseToSave = new Course(courseToEdit.getId(), courseName.getText().toString(), courseStatus.getSelectedItem().toString(), startDate.getText().toString(), endDate.getText().toString(), instructorName.getText().toString(), instructorPhoneNumber.getText().toString(), instructorEmail.getText().toString(), courseToEdit.getTermId());
+                        if(courseToSave.getName().isEmpty() || courseToSave.getStartDate().equals(R.string.start_date) || courseToSave.getEndDate().equals(R.string.end_date) || courseToSave.getStatus().isEmpty()){
+                            Toast.makeText(NewCourse.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                            return;}
                         repository.update(courseToSave);
                         courseToEdit = null;
                     } else {
                         Course courseToSave = new Course(0, courseName.getText().toString(), courseStatus.getSelectedItem().toString(), startDate.getText().toString(), endDate.getText().toString(), instructorName.getText().toString(), instructorPhoneNumber.getText().toString(), instructorEmail.getText().toString(), termId);
+                        if(courseToSave.getName().isEmpty() || courseToSave.getStartDate().equals(R.string.start_date) || courseToSave.getEndDate().equals(R.string.end_date) || courseToSave.getStatus().isEmpty()){
+                            Toast.makeText(NewCourse.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                            return;}
                         repository.insert(courseToSave);
                     }
 
