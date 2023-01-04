@@ -1,6 +1,10 @@
 package com.projects.scheduler.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,5 +34,34 @@ public class AssessmentDetails extends AppCompatActivity {
         endDate.setText("End Date: " + currentAssessment.getEndDate());
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_assessment_details, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent;
+        Repository repository = new Repository(getApplication());
+        switch(item.getItemId()){
+            case R.id.editAssessment:
+                intent = new Intent(AssessmentDetails.this, NewAssessment.class);
+                NewAssessment.assessmentToEdit = currentAssessment;
+                NewAssessment.courseId = currentAssessment.getCourseId();
+                startActivity(intent);
+                break;
+
+            case R.id.deleteAssessment:
+                intent = new Intent(AssessmentDetails.this, CourseDetails.class);
+                repository.delete(currentAssessment);
+                startActivity(intent);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }

@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/editCourse"
+        android:id="@+id/editAssessment"
         android:title="Edit Course" />
     <item
-        android:id="@+id/deleteCourse"
+        android:id="@+id/deleteAssessment"
         android:title="Delete Course" />
+    <item
+        android:id="@+id/shareNotes"
+        android:title="Share Notes" />
+    <item
+        android:id="@+id/notifyStart"
+        android:title="Turn on Start Date Notifications"/>
+    <item
+        android:id="@+id/notifyEnd"
+        android:title="Turn on End Date Notifications"/>
 </menu>

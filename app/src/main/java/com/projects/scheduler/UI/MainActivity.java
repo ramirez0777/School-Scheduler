@@ -25,6 +25,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private Repository repository;
+    public static int numAlert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(termAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fabAssessment);
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){

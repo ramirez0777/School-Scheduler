@@ -185,6 +185,16 @@ public class Repository {
         } catch(InterruptedException e){}
     }
 
+    public void delete(Assessment assessment){
+        databaseExecutor.execute(()->{
+            assessmentDAO.delete(assessment);
+        });
+
+        try{
+            Thread.sleep(1000);
+        } catch(InterruptedException e){}
+    }
+
     public void delete(Note note){
         databaseExecutor.execute(()->{
             noteDAO.delete(note);

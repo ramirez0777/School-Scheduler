@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ public class NewCourse extends AppCompatActivity {
 
     public static Course courseToEdit = null;
     public static int termId;
+
     DatePickerDialog.OnDateSetListener startDateListener;
     DatePickerDialog.OnDateSetListener endDateListener;
     final Calendar c = Calendar.getInstance();
@@ -33,13 +35,18 @@ public class NewCourse extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_course);
 
-        EditText courseName = findViewById(R.id.courseName);
+        EditText courseName = findViewById(R.id.assessmentName);
         Button startDate = findViewById(R.id.startDate);
         Button endDate = findViewById(R.id.endDate);
-        Spinner courseStatus = findViewById(R.id.status);
+
         EditText instructorName = findViewById(R.id.instructorName);
         EditText instructorPhoneNumber = findViewById(R.id.instructorPhone);
         EditText instructorEmail = findViewById(R.id.instructorEmail);
+
+        Spinner courseStatus = findViewById(R.id.courseStatus);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.course_status, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        courseStatus.setAdapter(adapter);
 
         if(courseToEdit == null){
             setTitle(R.string.new_course);
@@ -48,10 +55,12 @@ public class NewCourse extends AppCompatActivity {
             courseName.setText(courseToEdit.getName());
             startDate.setText(courseToEdit.getStartDate());
             endDate.setText(courseToEdit.getEndDate());
+            courseStatus.setSelection(adapter.getPosition(courseToEdit.getStatus()));
             instructorName.setText(courseToEdit.getInstructor());
             instructorPhoneNumber.setText(courseToEdit.getInstructorPhoneNumber());
             instructorEmail.setText(courseToEdit.getInstructorEmail());
         }
+
 
         startDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,35 +100,28 @@ public class NewCourse extends AppCompatActivity {
 
         };
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fabAssessment);
         Repository repository = new Repository(getApplication());
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
 
+                if(startDate.getText().equals(R.string.start_date) || endDate.getText().equals(R.string.end_date) || courseName.equals("") || instructorName.equals("") || instructorPhoneNumber.equals("") || instructorEmail.equals("")){return;}
+                else{
+                    //Updating
+                    if (courseToEdit != null) {
+                        Course courseToSave = new Course(courseToEdit.getId(), courseName.getText().toString(), courseStatus.getSelectedItem().toString(), startDate.getText().toString(), endDate.getText().toString(), instructorName.getText().toString(), instructorPhoneNumber.getText().toString(), instructorEmail.getText().toString(), courseToEdit.getTermId());
+                        repository.update(courseToSave);
+                        courseToEdit = null;
+                    } else {
+                        Course courseToSave = new Course(0, courseName.getText().toString(), courseStatus.getSelectedItem().toString(), startDate.getText().toString(), endDate.getText().toString(), instructorName.getText().toString(), instructorPhoneNumber.getText().toString(), instructorEmail.getText().toString(), termId);
+                        repository.insert(courseToSave);
+                    }
 
-                //Updating
-                if(courseToEdit != null) {
-                    Course courseToSave = new Course(courseToEdit.getId(), courseName.getText().toString(), "failing",  startDate.getText().toString(), endDate.getText().toString(), instructorName.getText().toString(), instructorPhoneNumber.getText().toString(), instructorEmail.getText().toString(), courseToEdit.getTermId());
-                    repository.update(courseToSave);
-                    courseToEdit = null;
-                } else{
-                    Course courseToSave = new Course(0,
-                            courseName.getText().toString(),
-                            "active",
-                            //courseStatus.getSelectedItem().toString(),
-                            startDate.getText().toString(),
-                            endDate.getText().toString(),
-                            instructorName.getText().toString(),
-                            instructorPhoneNumber.getText().toString(),
-                            instructorEmail.getText().toString(),
-                            termId);
-                    repository.insert(courseToSave);
+
+                    Intent intent = new Intent(NewCourse.this, TermDetails.class);
+                    startActivity(intent);
                 }
-
-
-                Intent intent = new Intent(NewCourse.this, TermDetails.class);
-                startActivity(intent);
             }
         });
     }

@@ -7,13 +7,27 @@
     <string name="term_name">Term Name</string>
     <string name="course_name">Course Name</string>
     <string name="start_date">Click to Select a Start Date</string>
-    <string name="end_date">Click Select an End Date</string>
+    <string name="end_date">Click to Select an End Date</string>
 
     <string name="new_term">Create a New Term</string>
     <string name="new_course">Create a New Course</string>
+    <string name="new_assessment">Create a New Assessment</string>
     <string name="edit_term">Edit Existing Term</string>
     <string name="edit_course">Edit Existing Course</string>
 
     <string name="term_deletion_error">Terms cannot be deleted if they have an associated
         Course</string>
+    <string name="channel_name">channelname</string>
+    <string name="channel_description">channeldescription</string>
+
+    <string-array name="course_status">
+        <item>In Progress</item>
+        <item>Completed</item>
+        <item>Dropped</item>
+        <item>Plan to Take</item>
+    </string-array>
+    <string-array name="assessment_type">
+        <item>Objective</item>
+        <item>Performance</item>
+    </string-array>
 </resources>

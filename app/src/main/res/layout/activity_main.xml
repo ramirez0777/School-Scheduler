@@ -25,7 +25,7 @@
         app:layout_constraintVertical_bias="0.022" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fabAssessment"
         android:src="@drawable/ic_baseline_add_24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
