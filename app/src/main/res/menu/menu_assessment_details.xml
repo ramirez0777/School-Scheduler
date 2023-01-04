@@ -6,4 +6,10 @@
     <item
         android:id="@+id/deleteAssessment"
         android:title="Delete Assessment" />
+    <item
+        android:id="@+id/notifyStart"
+        android:title="Turn on Start Date Notifications"/>
+    <item
+        android:id="@+id/notifyEnd"
+        android:title="Turn on End Date Notifications"/>
 </menu>
